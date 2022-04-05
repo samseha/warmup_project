@@ -19,31 +19,33 @@ class PersonFollower(object):
         self.vel = Twist()
     
     def best_angle(self, angle):
+        if angle < 10:
+            return 0
         if angle > 180:
-            return angle - 180
+            return angle - 360
         else:
             return angle
 
     def process_scan(self, data):
         #find closest object
         min_angle = 0
-        min_value = math.inf
-        rospy.loginfo("data.ranges", data.ranges)
-        rospy.loginfo("length", len(data.ranges))
+        min_value = data.ranges[0]
         for i in range(len(data.ranges)):
             if data.ranges[i] < min_value:
-                min_value = data
+                min_value = data.ranges[i]
                 min_angle = i
+        rospy.loginfo("distance = %f", data.ranges[min_angle])
+        rospy.loginfo("angle = %d", min_angle)
         if min_value == math.inf:
             self.vel.linear.x = 0
             self.vel.angular.z = 0
         else:
-            if min_value >= distance:
+            if min_value > distance:
                 self.vel.linear.x = 0.1
-                self.vel.angular.z = math.radians(self.best_angle(min_angle)))
+                self.vel.angular.z = math.radians(self.best_angle(min_angle))
             else:
                 self.vel.linear.x = 0
-                self.vel.angular.z = math.radians(self.best_angle(min_angle)))
+                self.vel.angular.z = math.radians(self.best_angle(min_angle))
         
         self.twist_pub.publish(self.vel)
     
@@ -51,7 +53,7 @@ class PersonFollower(object):
     def run(self):
         # Keep the program alive.
         rospy.spin()
-​
+
 if __name__ == '__main__':
     # Declare a node and run it.
     node = PersonFollower()
