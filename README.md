@@ -13,7 +13,9 @@ Publish 90 degrees and sleep 1 second and repeat.
 Gif:
 
 
-https://user-images.githubusercontent.com/57845592/161601565-46cc9c8e-94c5-44a2-b567-02a544afd3f2.MOV
+
+https://user-images.githubusercontent.com/57845592/161667696-eea22f37-ce0b-4154-b212-0d4d17d4c9c7.mp4
+
 
 
 Person Follower
