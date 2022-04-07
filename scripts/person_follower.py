@@ -29,9 +29,9 @@ class PersonFollower(object):
     def process_scan(self, data):
         #find closest object
         min_angle = 0
-        min_value = data.ranges[0]
+        min_value = math.inf
         for i in range(len(data.ranges)):
-            if data.ranges[i] < min_value:
+            if data.ranges[i] < min_value and data.ranges[i] != 0:
                 min_value = data.ranges[i]
                 min_angle = i
         rospy.loginfo("distance = %f", data.ranges[min_angle])
