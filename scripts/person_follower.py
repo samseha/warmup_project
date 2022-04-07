@@ -19,8 +19,11 @@ class PersonFollower(object):
         self.vel = Twist()
     
     def best_angle(self, angle):
+        #Finds the best angle to turnto
+        #the robot became very gittery so to prevent it blocks turning if below 10
         if angle < 10:
             return 0
+        #if angle is bigger than 180 we subtract it so it would not do exessive turns
         if angle > 180:
             return angle - 360
         else:
@@ -31,22 +34,27 @@ class PersonFollower(object):
         min_angle = 0
         min_value = math.inf
         for i in range(len(data.ranges)):
+            #check for min value and also exclude 0 as the min value
+            #since 0 can be from erroneous readings
             if data.ranges[i] < min_value and data.ranges[i] != 0:
                 min_value = data.ranges[i]
                 min_angle = i
         rospy.loginfo("distance = %f", data.ranges[min_angle])
         rospy.loginfo("angle = %d", min_angle)
+        #if there is no object stay still (was in gazebo, but not sure for real bots (is it just 0?))
         if min_value == math.inf:
             self.vel.linear.x = 0
             self.vel.angular.z = 0
         else:
+            #if bigger than min distance move towards it
             if min_value > distance:
                 self.vel.linear.x = 0.1
                 self.vel.angular.z = math.radians(self.best_angle(min_angle))
+            #if smaller than min distance stop
             else:
                 self.vel.linear.x = 0
                 self.vel.angular.z = math.radians(self.best_angle(min_angle))
-        
+        #publish speed
         self.twist_pub.publish(self.vel)
     
 
