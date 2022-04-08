@@ -63,6 +63,11 @@ Video:
 Challenges: The biggest challenge is that there are some discrepencies between Gazebo and a real turtlebot. For example, I do not think there are 0.0 readings in Gazebo, so you have to make sure the code accounts for all cases. Also, there are bumps in CSIL5 in the middle of the room for power outlets. If the robot is slow it will not drive over that bump which causes it to get stuck. Also, initially my approach was to get exact angular turn values at a certain time. However, it is hard to expect the robot to behave 100% perfectly unlike code where you are solving a simulated problem. In the wall_follower code I had to scrap all of my code and use a more calibrating approach. I believe that this approach is better since it is hard to assume that robots will turn the exact angle and due to residue speed it will not travel the exact distance you want it to. For future projects it will be important to take account of this as problems will become more complex.
 
 
-Future work: If I had more time I would try 
+Future work: If I had more time I would try to fix the issue I had with my original approach for wall_follower. I do believe it is still possible to find a way to implemnt the exact approach using 
 
-Takeaways (at least 2 bullet points with a few sentences per bullet point): What are your key takeaways from this project that would help you/others in future robot programming assignments? For each takeaway, provide a few sentences of elaboration.
+Takeaways (at least 2 bullet points with a few sentences per bullet point): 
+- It is harder to find exact measurements and to implement them on robots since they sometimes behave differently.
+Due to friction, momentum, etc, robots will go more than planned and its better to calibrate then instruct for exact movements.
+
+- It is important to have generous buffers for measurements.
+Similar to the point above it is important to buffer for limits. Since robots do not behave exactly, we need to account for errors which can get large if they accumulate.
