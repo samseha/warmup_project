@@ -37,6 +37,11 @@ run: keeps the program alive.
 Video:
 
 
+
+https://user-images.githubusercontent.com/57845592/162511138-d6b69a70-a578-42ce-98b5-eaae213a6c6e.mp4
+
+
+
 Wall Follower:
 
 A high-level desription: The problem is to make the robot find a wall and follow the wall turning at corners appropriately. I used distances at different angles of the robot to calibrate it.
@@ -56,6 +61,10 @@ process_scan: Get velocity and angular data and publish it. Also checks if robot
 run: Keeps the program alive
 
 Video:
+
+
+
+https://user-images.githubusercontent.com/57845592/162511156-8e0773fa-7acd-4ee7-ba74-3f2ef9828695.mp4
 
 
 
