@@ -25,7 +25,7 @@ class WallFollower(object):
             #check if robot is not at wall
             for dist in data.ranges:
                 #check if there is a wall nearby
-                if dist < 1.5:
+                if dist < 1.2:
                     self.at_wall = True
                     break
         speed = k * data.ranges[0]
@@ -74,9 +74,9 @@ class WallFollower(object):
         angle_diff = dist_135 - dist_45
         wall_ang = distance - dist_90
 
-        if angle_diff == math.inf:
+        if angle_diff == math.inf or dist_135 == 0:
             return -dist_45
-        elif angle_diff == -1 * math.inf:
+        elif angle_diff == -1 * math.inf or dist_45 == 0:
             return dist_135
         else:
             return -(angle_diff + wall_ang)
