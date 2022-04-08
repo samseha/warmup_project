@@ -38,3 +38,31 @@ Video:
 
 
 Wall Follower:
+
+A high-level desription: The problem is to make the robot find a wall and follow the wall turning at corners appropriately. I used distances at different angles of the robot to calibrate it.
+
+Solution: I used the distance from the left side of the robot to find if the distance at 45 and 135 degrees were different and used that to make adjustments. In addition, I used the distance between the wall and the safe distance such that it would make turns appropriately. Since the balance angle will be 0 when travelling along a wall, as the robot gets close to the front wall it will start turning. For velocity I used the k*e formula we learned at class. However, instead of the error term I just used the distance from the front wall as the robot needed speed to turn at corners. Also for values such as distance I tested out different values but realized the robot needed a buffer to succesfully turn without bumping the wall.
+
+
+Code:
+__init__: Initialize the node and a publisher for /cmd_vel and a subscriber for /scan with a callback function. Also create a empty Twist() to save the velocity of robot. Also create a Boolean called at_wall to see if the robot is near a wall
+get_x: gets the x velocity for the robot. First check if robot is near a wall by going through all lidar readings. Speed will be proportional to the front wall and if it is larger than 0.3 we will limit that so that the robot does not go out of control.
+
+get_angle: If the robot is not near any wall we return 0. If not, we get the distance from different angles at 45, 90, 135 degrees. We calibrate while at wall with the distance between 45 and 135 degrees. And for turning we use the difference between our "safe distance" and the distance from 90 degrees.
+We also check for cases where there are no readings and respond appropriately.
+
+process_scan: Get velocity and angular data and publish it. Also checks if robot is near wall every time we get twist data.
+
+run: Keeps the program alive
+
+Video:
+
+
+
+
+Challenges: The biggest challenge is that there are some discrepencies between Gazebo and a real turtlebot. For example, I do not think there are 0.0 readings in Gazebo, so you have to make sure the code accounts for all cases. Also, there are bumps in CSIL5 in the middle of the room for power outlets. If the robot is slow it will not drive over that bump which causes it to get stuck. Also, initially my approach was to get exact angular turn values at a certain time. However, it is hard to expect the robot to behave 100% perfectly unlike code where you are solving a simulated problem. In the wall_follower code I had to scrap all of my code and use a more calibrating approach. I believe that this approach is better since it is hard to assume that robots will turn the exact angle and due to residue speed it will not travel the exact distance you want it to. For future projects it will be important to take account of this as problems will become more complex.
+
+
+Future work: If I had more time I would try 
+
+Takeaways (at least 2 bullet points with a few sentences per bullet point): What are your key takeaways from this project that would help you/others in future robot programming assignments? For each takeaway, provide a few sentences of elaboration.
