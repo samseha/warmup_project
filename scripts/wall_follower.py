@@ -19,6 +19,7 @@ class WallFollower(object):
         rospy.Subscriber("/scan", LaserScan, self.process_scan)
         self.vel = Twist()
         self.at_wall = False
+        self.wall_side = None
     
     def get_x(self, data):
         if not self.at_wall:
